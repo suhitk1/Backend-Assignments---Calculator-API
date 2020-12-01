@@ -14,18 +14,18 @@ app.use(bodyParser.json())
 app.get('/',function(req,res){
     res.send("Hello World!");
 });
-app.post('/add',function(req,res){
+app.post("/add",(req,res)=>{
     const a = Number(req.query.num1);
     const b = Number(req.query.num2);
     if(a==='NaN'|| b==='NaN'){
         res.send({status: "error",
         message: "Invalid data types"});
     }
-    if(a<-1000000|| b<-1000000){
+    if(a<-1000000|| b<-1000000|| (a+b)<-1000000){
         res.send({status: "error",
         message: "Underflow"});
     }
-    if(a>1000000|| b>1000000){
+    if(a>1000000|| b>1000000 || (a+b)>1000000){
         res.send({status: "error",
         message: "Overflow"});
     }
@@ -35,18 +35,18 @@ app.post('/add',function(req,res){
         sum: `${a+b}`
         });
 });
-app.post('/sub',function(req,res){
+app.post("/sub",(req,res)=>{
     const a = Number(req.query.num1);
     const b = Number(req.query.num2);
     if(a==='NaN'|| b==='NaN'){
         res.send({status: "error",
         message: "Invalid data types"});
     }
-    if(a<-1000000|| b<-1000000){
+    if(a<-1000000|| b<-1000000 || (a-b)<-1000000){
         res.send({status: "error",
         message: "Underflow"});
     }
-    if(a>1000000|| b>1000000){
+    if(a>1000000|| b>1000000 || (a-b)>1000000){
         res.send({status: "error",
         message: "Overflow"});
     }
@@ -56,19 +56,19 @@ app.post('/sub',function(req,res){
         difference: `${a-b}`
         });
 });
-app.post('/multiply',function(req,res){
+app.post("/multiply",(req,res)=>{
     const a = Number(req.query.num1);
     const b = Number(req.query.num2);
     if(a==='NaN'|| b==='NaN'){
         res.send({status: "error",
         message: "Invalid data types"});
     }
-    if(a<-1000000|| b<-1000000){
+    if(a<-1000000|| b<-1000000||(a*b)<-1000000){
         res.send({status: "error",
         message: "Underflow"});
     }
-    if(a>1000000|| b>1000000){
-        res.send({status: "failure",
+    if(a>1000000|| b>1000000 || (a*b)>1000000){
+        res.send({status: "error",
         message: "Overflow"});
     }
     res.send({
@@ -77,7 +77,7 @@ app.post('/multiply',function(req,res){
         result: `${a*b}`
         });
 });
-app.post('/divide',function(req,res){
+app.post("/divide",(req,res)=>{
     const a = Number(req.query.num1);
     const b = Number(req.query.num2);
     if(a==='NaN'|| b==='NaN'){
@@ -88,17 +88,17 @@ app.post('/divide',function(req,res){
         res.send({status: "error",
         message: "Cannot divide by zero"});
     }
-    if(a<-1000000|| b<-1000000){
+    if(a<-1000000|| b<-1000000|| (a/b)<-1000000){
         res.send({status: "error",
         message: "Underflow"});
     }
-    if(a>1000000|| b>1000000){
+    if(a>1000000|| b>1000000 || (a/b)>1000000){
         res.send({status: "error",
         message: "Overflow"});
     }
     res.send({
         status: "success",
-        message: "the sum of given two numbers",
+        message: "The division of given numbers",
         result: `${a/b}`
         });
 });
