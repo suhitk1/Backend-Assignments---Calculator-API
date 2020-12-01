@@ -37,78 +37,96 @@ app.post("/add",(req,res)=>{
             sumObj.status = "success";
             sumObj.message = "the sum of given two numbers";
             sumObj.sum = num1 + num2;
-        }
-            
+        }           
     }
         res.send(sumObj);
         });
 app.post("/sub",(req,res)=>{
-    const a = Number(req.query.num1);
-    const b = Number(req.query.num2);
-    if(a==='NaN'|| b==='NaN'){
-        res.send({status: "error",
-        message: "Invalid data types"});
+    const subObj = {
+        status : "",
+        message : "",
+        difference : 0
+    };
+    const num1 = Number(req.query.num1);
+    const num2 = Number(req.query.num2);
+    if(isNaN(num1)||isNaN(num2)){
+        subObj.status = "error";
+        subObj.message = "Invalid data types";
+    }else{
+        if(num1<-1000000|| num2<-1000000|| (num1-num2)<-1000000){
+            subObj.status = "error";
+            subObj.message = "Underflow";
+        }
+        else if(num1>1000000|| num2>1000000 || (num1-num2)>1000000){
+            subObj.status = "error";
+            subObj.message = "Overflow";
+        }else{
+            subObj.status = "success";
+            subObj.message = "the difference of given two numbers";
+            subObj.difference = num1 - num2;
+        }           
     }
-    if(a<-1000000|| b<-1000000 || (a-b)<-1000000){
-        res.send({status: "error",
-        message: "Underflow"});
-    }
-    if(a>1000000|| b>1000000 || (a-b)>1000000){
-        res.send({status: "error",
-        message: "Overflow"});
-    }
-    res.send({
-        status: "success",
-        message: "the difference of given two numbers",
-        difference: `${a-b}`
+        res.send(subObj);
         });
-});
 app.post("/multiply",(req,res)=>{
-    const a = Number(req.query.num1);
-    const b = Number(req.query.num2);
-    if(a==='NaN'|| b==='NaN'){
-        res.send({status: "error",
-        message: "Invalid data types"});
+    const mulObj = {
+        status : "",
+        message : "",
+        result : 0
+    };
+    const num1 = Number(req.query.num1);
+    const num2 = Number(req.query.num2);
+    if(isNaN(num1)||isNaN(num2)){
+        mulObj.status = "error";
+        mulObj.message = "Invalid data types";
+    }else{
+        if(num1<-1000000|| num2<-1000000|| (num1*num2)<-1000000){
+            mulObj.status = "error";
+            mulObj.message = "Underflow";
+        }
+        else if(num1>1000000|| num2>1000000 || (num1*num2)>1000000){
+            mulObj.status = "error";
+            mulObj.message = "Overflow";
+        }else{
+            mulObj.status = "success";
+            mulObj.message = "The product of given numbers";
+            mulObj.result = num1 * num2;
+        }           
     }
-    if(a<-1000000|| b<-1000000||(a*b)<-1000000){
-        res.send({status: "error",
-        message: "Underflow"});
-    }
-    if(a>1000000|| b>1000000 || (a*b)>1000000){
-        res.send({status: "error",
-        message: "Overflow"});
-    }
-    res.send({
-        status: "success",
-        message: "The product of given numbers",
-        result: `${a*b}`
+        res.send(mulObj);
         });
-});
 app.post("/divide",(req,res)=>{
-    const a = Number(req.query.num1);
-    const b = Number(req.query.num2);
-    if(a==='NaN'|| b==='NaN'){
-        res.send({status: "error",
-        message: "Invalid data types"});
+    const divObj = {
+        status : "",
+        message : "",
+        result : 0
+    };
+    const num1 = Number(req.query.num1);
+    const num2 = Number(req.query.num2);
+    if(isNaN(num1)||isNaN(num2)){
+        divObj.status = "error";
+        divObj.message = "Invalid data types";
     }
-    if(b===0){
-        res.send({status: "error",
-        message: "Cannot divide by zero"});
+    else if(num2===0){
+        divObj.status = "error";
+        divObj.message = "Cannot divide by zero";
     }
-    if(a<-1000000|| b<-1000000|| (a/b)<-1000000){
-        res.send({status: "error",
-        message: "Underflow"});
+    else{
+        if(num1<-1000000|| num2<-1000000|| (num1/num2)<-1000000){
+            divObj.status = "error";
+            divObj.message = "Underflow";
+        }
+        else if(num1>1000000|| num2>1000000 || (num1/num2)>1000000){
+            divObj.status = "error";
+            divObj.message = "Overflow";
+        }else{
+            divObj.status = "success";
+            divObj.message = "The division of given numbers";
+            divObj.result = num1 / num2;
+        }           
     }
-    if(a>1000000|| b>1000000 || (a/b)>1000000){
-        res.send({status: "error",
-        message: "Overflow"});
-    }
-    res.send({
-        status: "success",
-        message: "The division of given numbers",
-        result: `${a/b}`
+        res.send(divObj);
         });
-});
 
 app.listen(port, () => console.log(`App listening on port ${port}!`))
 
