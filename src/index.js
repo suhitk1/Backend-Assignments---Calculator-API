@@ -20,8 +20,8 @@ app.post("/add",(req,res)=>{
         message : "",
         sum : 0
     };
-    const num1 = Number(req.query.num1);
-    const num2 = Number(req.query.num2);
+    const num1 = Number(req.body.num1);
+    const num2 = Number(req.body.num2);
     if(isNaN(num1)||isNaN(num2)){
         sumObj.status = "error";
         sumObj.message = "Invalid data types";
@@ -47,8 +47,8 @@ app.post("/sub",(req,res)=>{
         message : "",
         difference : 0
     };
-    const num1 = Number(req.query.num1);
-    const num2 = Number(req.query.num2);
+    const num1 = Number(req.body.num1);
+    const num2 = Number(req.body.num2);
     if(isNaN(num1)||isNaN(num2)){
         subObj.status = "error";
         subObj.message = "Invalid data types";
@@ -74,8 +74,8 @@ app.post("/multiply",(req,res)=>{
         message : "",
         result : 0
     };
-    const num1 = Number(req.query.num1);
-    const num2 = Number(req.query.num2);
+    const num1 = Number(req.body.num1);
+    const num2 = Number(req.body.num2);
     if(isNaN(num1)||isNaN(num2)){
         mulObj.status = "error";
         mulObj.message = "Invalid data types";
@@ -101,8 +101,8 @@ app.post("/divide",(req,res)=>{
         message : "",
         result : 0
     };
-    const num1 = Number(req.query.num1);
-    const num2 = Number(req.query.num2);
+    const num1 = Number(req.body.num1);
+    const num2 = Number(req.body.num2);
     if(isNaN(num1)||isNaN(num2)){
         divObj.status = "error";
         divObj.message = "Invalid data types";
