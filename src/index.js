@@ -15,26 +15,33 @@ app.get('/',function(req,res){
     res.send("Hello World!");
 });
 app.post("/add",(req,res)=>{
-    const a = Number(req.query.num1);
-    const b = Number(req.query.num2);
-    if(a==='NaN'|| b==='NaN'){
-        res.send({status: "error",
-        message: "Invalid data types"});
+    const sumObj = {
+        status : "",
+        message : "",
+        sum : 0
+    };
+    const num1 = Number(req.query.num1);
+    const num2 = Number(req.query.num2);
+    if(isNaN(num1)||isNaN(num2)){
+        sumObj.status = "error";
+        sumObj.message = "Invalid data types";
+    }else{
+        if(num1<-1000000|| num2<-1000000|| (num1+num2)<-1000000){
+            sumObj.status = "error";
+            sumObj.message = "Underflow";
+        }
+        else if(num1>1000000|| num2>1000000 || (num1+num2)>1000000){
+            sumObj.status = "error";
+            sumObj.message = "Overflow";
+        }else{
+            sumObj.status = "success";
+            sumObj.message = "the sum of given two numbers";
+            sumObj.sum = num1 + num2;
+        }
+            
     }
-    if(a<-1000000|| b<-1000000|| (a+b)<-1000000){
-        res.send({status: "error",
-        message: "Underflow"});
-    }
-    if(a>1000000|| b>1000000 || (a+b)>1000000){
-        res.send({status: "error",
-        message: "Overflow"});
-    }
-    res.send({
-        status: "success",
-        message: "the sum of given two numbers",
-        sum: `${a+b}`
+        res.send(sumObj);
         });
-});
 app.post("/sub",(req,res)=>{
     const a = Number(req.query.num1);
     const b = Number(req.query.num2);
